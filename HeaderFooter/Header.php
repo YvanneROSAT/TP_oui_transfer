@@ -1,5 +1,5 @@
 <?php
-// session_start();
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -29,16 +29,22 @@
                     <img src="assets/img/Logo.png">
                 </a>
                 <ul class="nav-menu" id="nav-menu">
-                    <li><a href="dashboard.php">Dashboard</a></li>
+                    <?php if (!isset($_SESSION['auth'])) { ?>
+                        <li><a href="dashboard.php">Dashboard</a></li>
+                    <?php } ?>
+                    
                     <li><a href="index.php">Inscription</a></li>
                     <li><a href="Connexion.php" class="btn btn-hover"><span>
                                 Connexion
                             </span></a>
                     </li>
-                    <li><a href="./Actions/Deconnexion.php" class="btn btn-hover"><span>
+
+                    <?php if (!isset($_SESSION['auth'])) { ?>
+                        <li><a href="./Actions/Deconnexion.php" class="btn btn-hover"><span>
                                 Déconnexion
                             </span></a>
                     </li>
+                    <?php } ?>
                 </ul>
                 <!--Mobile version-->
                 <div class="hamburger-menu" id="hamburger-menu">
