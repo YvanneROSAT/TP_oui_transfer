@@ -1,5 +1,6 @@
 <?php
 require('Databases.php');
+session_start();
 
 if (isset($_POST['validate'])) {
     if (!empty($_POST['email']) && !empty($_POST['password'])) {
@@ -20,7 +21,7 @@ if (isset($_POST['validate'])) {
         if ($user && password_verify($password, $user['password_user'])) {
             // Enregistre l'ID de l'utilisateur dans la session
             $_SESSION['auth'] = true;
-            $_SESSION['id'] = $user['id_user'];
+            $_SESSION['id'] = $user['id'];
             $_SESSION['email'] = $user['email'];
             $_SESSION['nom'] = $user['nom'];
         }
@@ -34,7 +35,9 @@ if (isset($_POST['validate'])) {
         // echo "<br>";
         // echo $test;
         // echo "<br>";
-        // echo $_SESSION['id'];
+        // echo " session id : " . $_SESSION['id'];
+        // echo "<br>";
+        // echo $user['id'];
         header('Location: ../dashboard.php ');
     } else {
         echo "Veuillez remplir tous les champs";
