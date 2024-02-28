@@ -11,7 +11,7 @@ try {
 if($connexion) {
 echo "Connexion réussi";
 } else {
-    echo "Erreur de connexion";
+    echo "Erreur de connexionnnnnnn";
 }
 
 } catch(PDOException $e) {
