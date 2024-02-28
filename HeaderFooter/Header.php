@@ -20,6 +20,7 @@
     <title>Oui Transfert</title>
 </head>
 
+
 <body>
     <!--Nav Section-->
     <section class="nav-wrapper">
@@ -31,6 +32,14 @@
                 <ul class="nav-menu" id="nav-menu">
                     <?php if (isset($_SESSION['auth'])) { ?>
                         <li><a href="dashboard.php">Dashboard</a></li>
+                        <li><a href="./envoyer.php" class="btn btn-hover"><span>
+                                Envoyer
+                            </span></a>
+                        </li>
+                        <li><a href="./profil.php" class="btn btn-hover"><span>
+                                Profil
+                            </span></a>
+                        </li>
                         <li><a href="./Actions/Deconnexion.php" class="btn btn-hover"><span>
                                 Déconnexion
                             </span></a>

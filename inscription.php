@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('./HeaderFooter/Header.php');
 ?>
 <!-- <!DOCTYPE html>
@@ -38,6 +39,15 @@ require('./HeaderFooter/Header.php');
 </section> -->
 <!--ENd NAV-->
     <!-- Section: Design Block -->
+
+    <?php
+if (isset($_SESSION['errorMessage'])) { ?>
+  <div class="error-message" style="text-align:center; color: red;">
+    <?= $_SESSION['errorMessage']?>
+  </div>
+  <?php unset($_SESSION['errorMessage']); // Supprime le message d'erreur de la session
+  } ?>
+
 <section class=" text-center text-lg-start">
 
   <div class="card mb-3">
@@ -53,24 +63,30 @@ require('./HeaderFooter/Header.php');
             <!-- Nom input -->
             <div class="form-outline mb-4">
             <label class="form-label" for="form2Example1">Nom</label>
-              <input type="email" id="form2Example1" name="nom" class="form-control" />
+              <input type="nom" id="form2Example1" name="nom" class="form-control" required />
              
             </div>
             <!-- Email input -->
             <div class="form-outline mb-4">
             <label class="form-label" for="form2Example1">Email address</label>
-              <input type="email" id="form2Example1" name="email" class="form-control" />
+              <input type="email" id="form2Example1" name="email" class="form-control" required />
              
             </div>
 
             <!-- Password input -->
             <div class="form-outline mb-4">
             <label class="form-label" for="form2Example2">Password</label>
-              <input type="password" id="form2Example2" class="form-control" name="password"/>
-              
+              <input type="password" id="form2Example2" class="form-control" name="password" required/>
             </div>
+
+            <!-- Confirm Password input -->
+            <div class="form-outline mb-4">
+            <label class="form-label" for="form2Example2">Confirm Password</label>
+              <input type="password" id="form2Example2" class="form-control" name="confirmPassword" required/>
+            </div>
+
             <!-- Submit button -->
-            <button type="button" class="btn btn-primary btn-block mb-4" name="validate">Inscrivez vous</button>
+            <button type="submit" class="btn btn-primary btn-block mb-4" name="validate">Inscrivez vous</button>
 
           </form>
 
