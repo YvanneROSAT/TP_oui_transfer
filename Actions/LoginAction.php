@@ -10,7 +10,7 @@ if (isset($_POST['validate'])) {
 
         $bdd = connexion();
 
-        $sql = "SELECT * FROM Users WHERE email = :email";
+        $sql = "SELECT id, nom, email, password_user FROM Users WHERE email = :email";
         $stmt = $bdd->prepare($sql);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
@@ -19,9 +19,22 @@ if (isset($_POST['validate'])) {
         // Vérifie si l'utilisateur existe et si le mot de passe est correct
         if ($user && password_verify($password, $user['password_user'])) {
             // Enregistre l'ID de l'utilisateur dans la session
-            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['auth'] = true;
+            $_SESSION['id'] = $user['id_user'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['nom'] = $user['nom'];
         }
 
+        // echo $_SESSION['email'];
+        // echo "<br>";
+        // echo "Password saisie par l'user : " . $password;
+        // echo "<br>";
+        // echo "Password bdd : " . $user['password_user'];
+        // $test = password_verify($password, $user['password_user']);
+        // echo "<br>";
+        // echo $test;
+        // echo "<br>";
+        // echo $_SESSION['id'];
         header('Location: ../dashboard.php ');
     } else {
         echo "Veuillez remplir tous les champs";

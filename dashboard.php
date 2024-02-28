@@ -1,12 +1,12 @@
 <?php
-if (!isset($_SESSION['user_id'])) {
-    header('Location: index.php');
-}
+session_start();
+// if (!isset($_SESSION['user_id'])) {
+//     header('Location: index.php');
+// }
 require('./HeaderFooter/Header.php');
-var_dump($_SESSION);
 ?>
 
-<h1>Hello world</h1>
+<h1>Hello <?= $_SESSION['id'] ?></h1>
 
 <?php
 require('./HeaderFooter/Footer.php');
