@@ -10,11 +10,8 @@ function connexion()
 
     try {
         $connexion = new PDO("mysql:host=$serveur;dbname=$bdd", $utilisateur, $mot_de_passe);
-
         if ($connexion) {
-            echo "Connexion réussi";
-        } else {
-            echo "Erreur de connexion";
+            return $connexion;
         }
     } catch (PDOException $e) {
         echo "Erreur de connexion à la base de données : " . $e->getMessage();
