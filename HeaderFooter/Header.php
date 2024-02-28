@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,10 +29,14 @@
                     <img src="assets/img/Logo.png">
                 </a>
                 <ul class="nav-menu" id="nav-menu">
-                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="dashboard.php">Dashboard</a></li>
                     <li><a href="index.php">Inscription</a></li>
                     <li><a href="Connexion.php" class="btn btn-hover"><span>
                                 Connexion
+                            </span></a>
+                    </li>
+                    <li><a href="./Actions/Deconnexion.php" class="btn btn-hover"><span>
+                                Déconnexion
                             </span></a>
                     </li>
                 </ul>
