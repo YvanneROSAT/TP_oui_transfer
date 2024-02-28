@@ -1,7 +1,7 @@
 <?php
 require('./HeaderFooter/Header.php');
 ?>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" href="assets/logo.png">
@@ -12,9 +12,9 @@ require('./HeaderFooter/Header.php');
     <link rel="stylesheet" href="assets/CSS/index.css">
     <title>Document</title>
 </head>
-<body>
+<body> -->
     <!--Nav Section-->
-<section class="nav-wrapper">
+<!-- <section class="nav-wrapper">
     <div class="container">
         <div class="nav">
             <a href="index.php" class="logo">
@@ -28,7 +28,6 @@ require('./HeaderFooter/Header.php');
                 </span></a>
             </li>
             </ul>
-            <!--Mobile version-->
             <div class="hamburger-menu" id="hamburger-menu">
                 <div class="hamburger">
                     
@@ -36,7 +35,7 @@ require('./HeaderFooter/Header.php');
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!--ENd NAV-->
     <!-- Section: Design Block -->
 <section class=" text-center text-lg-start">
