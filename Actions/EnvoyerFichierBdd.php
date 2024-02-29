@@ -34,7 +34,7 @@ if ($fichier['error'] == UPLOAD_ERR_OK) { // UPLOAD_ERR_OK est égale à 0
 
             // Maintenant on vérifie que la taille est OK
             $taille = filesize($fichier['tmp_name']);
-            if ($taille < 99999999) {
+            if ($taille < 20971520) {
                 // La taille est en dessous de la limite, c'est ok
 
                 // Enfin, on peut déplacer le fichier.
@@ -49,15 +49,15 @@ if ($fichier['error'] == UPLOAD_ERR_OK) { // UPLOAD_ERR_OK est égale à 0
 
                 
                 
-                // $bdd = connexion();
-                // $sql = "INSERT INTO Fichiers (nom_fichier, nom_fichier_cryptee, id_user) VALUES (:nom_fichier, :nom_fichier_cryptee, :id_user)";
-                // $stmt = $bdd->prepare($sql);
-                // $stmt->bindParam(':nom_fichier', $nom_fichier);
-                // $stmt->bindParam(':nom_fichier_cryptee', $fichier_cryptee);
-                // $stmt->bindParam(':id_user', $_SESSION['id']);
-                // $stmt->execute();
+                $bdd = connexion();
+                $sql = "INSERT INTO Fichiers (nom_fichier, nom_fichier_cryptee, id_user) VALUES (:nom_fichier, :nom_fichier_cryptee, :id_user)";
+                $stmt = $bdd->prepare($sql);
+                $stmt->bindParam(':nom_fichier', $nom_fichier);
+                $stmt->bindParam(':nom_fichier_cryptee', $fichier_cryptee);
+                $stmt->bindParam(':id_user', $_SESSION['id']);
+                $stmt->execute();
 
-                $_SESSION['success'] = "Votre fichier " . $nom_fichier . " à été envoyer";
+                $_SESSION['success'] = "Votre fichier " . " à été envoyer";
 
                 header('Location: ../envoyer.php ');
                 exit();

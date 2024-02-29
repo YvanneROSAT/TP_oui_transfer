@@ -1,2 +1,0 @@
-<?php
-$prenom = "John";

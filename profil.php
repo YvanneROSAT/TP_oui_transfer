@@ -7,15 +7,11 @@ if (!isset($_SESSION['auth'])) {
 require('./HeaderFooter/Header.php');
 require('./Actions/Databases.php');
 
-function maskPassword($password) {
-    // Remplacer chaque caractère du mot de passe par le caractère masqué "•"
-    return str_repeat("•", strlen($password));
-}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['new_username'])) {
         // Mettre à jour le pseudo de l'utilisateur dans la base de données
-        $new_username = filter_input(INPUT_POST, "new_username", FILTER_SANITIZE_STRING);
+        $new_username = filter_input(INPUT_POST, "new_username");
         // la requête SQL
         $bdd = connexion();
         $sql = "UPDATE Users SET nom = :nom WHERE id = " . $_SESSION['id'];
@@ -102,7 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h3>Modifier Mot de passe</h3>
         <form method="POST">
             <div class="form-group m-3">
-            <h4 class="m-3"><?php echo maskPassword($_SESSION['password']); ?></h4>
                 <label for="old_password" class="mb-3">Ancien mot de passe :</label>
                 <input type="password" class="form-control" id="old_password" name="old_password">
             </div>
