@@ -5,7 +5,7 @@ if (!isset($_SESSION['auth'])) {
 }
 
 require('./HeaderFooter/Header.php');
-require('./Actions/EnvoyerFichierBdd.php');
+// require('./Actions/EnvoyerFichierBdd.php');
 ?>
 
 
@@ -19,12 +19,20 @@ if (isset($_SESSION['errorMessage'])) { ?>
 <?php unset($_SESSION['errorMessage']); // Supprime le message d'erreur de la session
 } ?>
 
+<?php
+if (isset($_SESSION['success'])) { ?>
+    <div class="success-message" style="text-align:center; color: green;">
+        <?= $_SESSION['success'] ?>
+    </div>
+<?php unset($_SESSION['success']); // Supprime le message d'erreur de la session
+} ?>
+
 <!--
     Pour envoyer un fichier :
     - On utilisera la méthode POST parce qu'un fichier binaire dans l'URL, c'est pas super
     - On utilisera enctype avec la valeur multipart/form-data pour encoder la requête différemment
     -->
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" action="./Actions/EnvoyerFichierBdd.php">
     <label for="titre">Titre</label>
     <input type="text" name="titre" id="titre">
 
