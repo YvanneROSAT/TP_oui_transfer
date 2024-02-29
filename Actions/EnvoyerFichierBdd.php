@@ -1,5 +1,5 @@
 <?php
-require('./Databases.php');
+require('./Actions/Databases.php');
 require('./Function/ft_extension.php');
 
 $fichier = $_FILES['fichier'];
@@ -16,7 +16,7 @@ if ($fichier['error'] == UPLOAD_ERR_OK) { // UPLOAD_ERR_OK est égale à 0
         // On ouvre le fichier tmp_name pour regarder ce qu'il y a dedans
         $finfo = finfo_open(FILEINFO_MIME);
         $info = finfo_file($finfo, $fichier['tmp_name']);
-
+        var_dump($info);
         if (str_contains($info, 'application/pdf')) {
             // Là on est certain(e)s que c'est vraiment du PDF
 
@@ -27,7 +27,7 @@ if ($fichier['error'] == UPLOAD_ERR_OK) { // UPLOAD_ERR_OK est égale à 0
 
                 // Enfin, on peut déplacer le fichier.
                 $hash_email = hash('sha256', $_SESSION["email"]);
-                move_uploaded_file($fichier['tmp_name'], "./Upload" . "/" . $hash_email . '.pdf');
+                move_uploaded_file($fichier['tmp_name'], "../Upload" . "/" . $hash_email . '.pdf');
 
                 $bdd = connexion();
                 $sql = "INSERT INTO Fichiers (id_fichier, id_utilisateur_partage, password_user) VALUES (:nom, :email, :password)";
@@ -36,10 +36,6 @@ if ($fichier['error'] == UPLOAD_ERR_OK) { // UPLOAD_ERR_OK est égale à 0
                 $stmt->bindParam(':email', $email);
                 $stmt->bindParam(':password', $password);
                 $stmt->execute();
-
-
-
-
             } else {
                 $_SESSION['errorMessage'] = "Aie ! Le fichier est trop volumineux";
             }
@@ -53,4 +49,3 @@ if ($fichier['error'] == UPLOAD_ERR_OK) { // UPLOAD_ERR_OK est égale à 0
     // Il y a eu une erreur à l'envoi du fichier
     $_SESSION['errorMessage'] = "Oups";
 }
-?>

@@ -5,6 +5,7 @@ if (!isset($_SESSION['auth'])) {
 }
 
 require('./HeaderFooter/Header.php');
+require('./Actions/EnvoyerFichierBdd.php');
 ?>
 
 
@@ -23,7 +24,7 @@ if (isset($_SESSION['errorMessage'])) { ?>
     - On utilisera la méthode POST parce qu'un fichier binaire dans l'URL, c'est pas super
     - On utilisera enctype avec la valeur multipart/form-data pour encoder la requête différemment
     -->
-<form method="POST" enctype="multipart/form-data" action="./Actions/EnvoyerFichierBdd.php">
+<form method="POST" enctype="multipart/form-data">
     <label for="titre">Titre</label>
     <input type="text" name="titre" id="titre">
 
