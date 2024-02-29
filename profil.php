@@ -71,37 +71,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<h1 style='text-align:center; '>Mon profil</h1>
+<h1 style="text-align:center">Mon profil</h1>
 
-<form method="POST">
-    <div class="form-group m-3">
-        <h3 class="m-3">Mon identifiant : <?php echo $_SESSION['nom'] ?></h3>
-        <label for="new_username">Nouveau pseudo :</label>
-        <input type="text" class="form-control" id="new_username" name="new_username">
+<container class="d-flex justify-content-center">
+    <div class="card m-3 w-25 p-3 d-flex text-center mx-auto mx-auto justify-content-between">
+        <h3>Modifier Nom</h3>
+        <form method="POST">
+            <div class="form-group m-3">
+                <h4 class="m-3"><?php echo $_SESSION['nom'] ?></h4>
+                <label for="new_username" class="mb-3">Nouveau Nom :</label>
+                <input type="text" class="form-control d-inline" id="new_username" name="new_username">
+                <button type="submit" class="btn btn-primary m-3">Mettre à jour</button>
+            </div>
+        </form>
     </div>
-    <button type="submit" class="btn btn-primary m-3">Mettre à jour le pseudo</button>
-</form>
+    
+    <div class="card m-3 w-25 p-3 d-flex text-center mx-auto mx-auto justify-content-between">
+        <h3>Modifier Email</h3>
+        <form method="POST">
+            <div class="form-group m-3">
+                <h4 class="m-3"><?php echo $_SESSION['email'] ?></h4>
+                <label for="new_email" class="mb-3">Nouvel email :</label>
+                <input type="email" class="form-control" id="new_email" name="new_email">
+                <button type="submit" class="btn btn-primary m-3">Mettre à jour</button>
+            </div>
+        </form>
+    </div>
 
-<form method="POST">
-    <div class="form-group m-3">
-        <h3 class="m-3">Mon email : <?php echo $_SESSION['email'] ?></h3>
-        <label for="new_email">Nouvel email :</label>
-        <input type="email" class="form-control" id="new_email" name="new_email">
+    <div class="card m-3 w-25 p-3 d-flex text-center mx-auto mx-auto justify-content-between">
+        <h3>Modifier Mot de passe</h3>
+        <form method="POST">
+            <div class="form-group m-3">
+            <h4 class="m-3"><?php echo maskPassword($_SESSION['password']); ?></h4>
+                <label for="old_password" class="mb-3">Ancien mot de passe :</label>
+                <input type="password" class="form-control" id="old_password" name="old_password">
+            </div>
+            <div class="form-group m-3">
+                <label for="new_password">Nouveau mot de passe :</label>
+                <input type="password" class="form-control" id="new_password" name="new_password">
+                <button type="submit" class="btn btn-primary m-3">Mettre à jour</button>
+            </div>
+        </form>
     </div>
-    <button type="submit" class="btn btn-primary m-3">Mettre à jour l'e-mail</button>
-</form>
-
-<form method="POST">
-    <div class="form-group m-3">
-    <h3 class="m-3">Mon mot de passe : <?php echo maskPassword($_SESSION['password']); ?></h3>
-        <label for="old_password">Ancien mot de passe :</label>
-        <input type="password" class="form-control" id="old_password" name="old_password">
-    </div>
-    <div class="form-group m-3">
-        <label for="new_password">Nouveau mot de passe :</label>
-        <input type="password" class="form-control" id="new_password" name="new_password">
-    </div>
-    <button type="submit" class="btn btn-primary m-3">Mettre à jour le mot de passe</button>
-</form>
-
-<?php require('./HeaderFooter/Footer.php'); ?>
+    
+    <?php require('./HeaderFooter/Footer.php'); ?>
+</container>
