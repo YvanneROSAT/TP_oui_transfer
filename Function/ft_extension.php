@@ -57,6 +57,5 @@ function getAndVerify($extension, $application)
         ".odt" => "application/vnd.oasis.opendocument.text"
     );
 
-
     return isset($extensions[$extension]) && $extensions[$extension] === $application;
 }
