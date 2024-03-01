@@ -30,19 +30,4 @@ require('Databases.php');
             return false;
         }
     }
-
-    function DownloadFichiers($id)
-    {
-        try {
-            $bdd=connexion();
-            $sql = "SELECT  FROM `Fichiers` WHERE id_user=:id";
-            $stmt =$bdd->prepare($sql);
-            $stmt->bindparam(':id', $id);
-            $stmt->execute();
-            return true;
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            return false;
-        }
-    }
     

@@ -5,7 +5,6 @@ if (!isset($_SESSION['auth'])) {
 }
 require('Actions/fichier.php');
  $results = getheFichiers();
- var_dump($results);
 
 require('./HeaderFooter/Header.php');
 ?>
@@ -29,7 +28,7 @@ require('./HeaderFooter/Header.php');
     <td><?php echo $r['nom_fichier_cryptee'] ?></td>
     <td><?php echo $r['id_user'] ?></td>
     <td>
-    <a href="edit.php?id=<?php echo $r['id_user'] ?>" class="btn btn-warning"download="<?php echo $r['id_user'] ?>">download</a>
+    <a href="./Upload/<?= $r['nom_fichier_cryptee'] ?>" class="btn btn-warning">download</a>
     <a onclick="return confirm('Are you sure you want to delete this rental?');" href="delete.php?id=<?php echo $r['id_user'] ?>" class="btn btn-danger">Delete</a>
     </td>
     <?php }
