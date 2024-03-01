@@ -33,8 +33,8 @@ if (isset($_SESSION['success'])) { ?>
     - On utilisera enctype avec la valeur multipart/form-data pour encoder la requête différemment
     -->
 <form method="POST" enctype="multipart/form-data" action="./Actions/EnvoyerFichierBdd.php">
-    <label for="titre">Titre</label>
-    <input type="text" name="titre" id="titre">
+    <label for="email">Email</label>
+    <input type="text" name="email" id="email">
 
     <label for="fichier">Choisir un fichier</label>
     <input type="file" name="fichier" id="fichier">

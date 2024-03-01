@@ -5,7 +5,32 @@ require('Databases.php');
 require('../Function/ft_extension.php');
 
 
+function checkEmailExist($email){
+    $bdd = connexion();
+    $sql = "SELECT COUNT(*) AS count FROM Users WHERE email = :email";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($result['count'] == 0) {
+        $_SESSION['errorMessage'] = "Aucun compte n'existe avec l'adresse email saisie.";
+        header('Location: ../envoyer.php');
+        exit();
+    }
+}
+
+
 $fichier = $_FILES['fichier'];
+$email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
+
+if(!$email){
+    $_SESSION['errorMessage'] = "L'adresse email n'est pas valide !";
+    header('Location: ../envoyer.php ');
+    exit();
+}
+
+checkEmailExist($email);
 
 
 if ($fichier['error'] == UPLOAD_ERR_OK) { // UPLOAD_ERR_OK est égale à 0
@@ -72,6 +97,6 @@ if ($fichier['error'] == UPLOAD_ERR_OK) { // UPLOAD_ERR_OK est égale à 0
     }
 } else {
     // Il y a eu une erreur à l'envoi du fichier
-    $_SESSION['errorMessage'] = "Oups";
+    $_SESSION['errorMessage'] = "Veuillez remplir tout les champs !";
     header('Location: ../envoyer.php ');
 }
