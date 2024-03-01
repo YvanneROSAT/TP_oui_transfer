@@ -5,11 +5,35 @@ if (!isset($_SESSION['auth'])) {
 }
 require('Actions/fichier.php');
 $results = getheFichiers();
+
+// Déclaration de la variable pour stocker l'ID du fichier
+$id_fichier = null;
+
+// Vérifiez si un fichier est téléchargé
+if (isset($_GET['nom_fichier'])) {
+    $id_fichier = $_GET['nom_fichier'];
+    if (incrementDownloadCount($id_fichier)) {
+        // Redirigez vers le fichier pour le télécharger
+        header("Location: ./Upload/" . DownloadFichiers($id_fichier));
+        exit();
+    } else {
+        // Affichez un message d'erreur si l'incrémentation a échoué
+        echo "Une erreur s'est produite lors de l'incrémentation du nombre de téléchargements.";
+        exit();
+    }
+}
+
+
+
+
+
+
 require('./HeaderFooter/Header.php');
 ?>
 
 
 <h1 class="text-center my-5">Bienvenu sur le Dashboard <?= $_SESSION['nom'] ?></h1>
+<h1>Mes fichiers envoyer</h1>
 <div class="container">
     <table class="table">
         <thead>
@@ -34,7 +58,12 @@ require('./HeaderFooter/Header.php');
                         <div class="container text-center">
                             <div class="row justify-content-start">
                                 <div class="col-6">
-                                    <a href="./Upload/<?= DownloadFichiers($r['nom_fichier']) ?>" class="btn btn-warning" download>download</a>
+
+                                <form action="">
+                                <input type="hidden" name="id_fichier" value="<?= $r['id_fichier'] ?>">
+                                    <button type='submit'><a href="./Upload/<?= DownloadFichiers($r['nom_fichier']) ?>" class="btn btn-warning" download>download</a></button>
+                                </form>
+
                                 </div>
                                 <div class="col-6">
                                     <a onclick="return confirm('Are you sure you want to delete this rental?');" href="delete.php?id=<?php echo $r['id_user'] ?>" class="btn btn-danger">Delete</a>

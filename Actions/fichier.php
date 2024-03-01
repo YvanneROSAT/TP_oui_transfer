@@ -3,18 +3,21 @@
 require('Databases.php');
 
 
- function getheFichiers()
-    {
-        try {
-            $bdd=connexion();
-            $sql = "SELECT `nom`, `nom_fichier`,id_user FROM `Fichiers` , Users WHERE Fichiers.id_user=Users.ID";
-            $result =$bdd->query($sql);
-            return $result;
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            return false;
-        }
-    }   
+function getheFichiers()
+{
+    try {
+        $bdd = connexion();
+        $sql = "SELECT `nom`, Fichiers.id AS id_fichier ,`nom_fichier`, id_user FROM `Fichiers`, `Users` WHERE Fichiers.id_user = Users.ID AND id_user = :id_user";
+        $stmt = $bdd->prepare($sql);
+        $stmt->bindParam(':id_user', $_SESSION['id']);
+        $stmt->execute();
+        return $stmt;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
+}
+
 
     function DeleteFichiers($id)
     {
@@ -46,3 +49,21 @@ require('Databases.php');
             return false;
         }
     }
+
+
+    function incrementDownloadCount($id_fichier)
+{
+    try {
+        $bdd = connexion();
+        $sql = "UPDATE Fichiers SET nombre_telechargement = nombre_telechargement + 1 WHERE ID = :id_fichier";
+        $stmt = $bdd->prepare($sql);
+        $stmt->bindParam(':id_fichier', $id_fichier);
+        $stmt->execute();
+        return true;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
+}
+
+

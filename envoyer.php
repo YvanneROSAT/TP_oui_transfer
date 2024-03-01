@@ -9,7 +9,7 @@ require('./HeaderFooter/Header.php');
 ?>
 
 
-<h1 class="text-center my-5"'>Envoyer un fichier</h1>
+<h1 class="text-center my-5">Envoyer un fichier</h1>
 
 <?php
 if (isset($_SESSION['errorMessage'])) { ?>
@@ -35,7 +35,7 @@ if (isset($_SESSION['success'])) { ?>
             <form method="POST" enctype="multipart/form-data" action="./Actions/EnvoyerFichierBdd.php">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
         
