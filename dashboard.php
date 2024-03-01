@@ -16,18 +16,17 @@ require('./HeaderFooter/Header.php');
         <br>
         <br>
         <tr>
+            <th>nom</th>
         <th>nom_fichier</th>
-            <th>nom_fichier_cryptee</th>
-            <th>id_user</th>
+        <th>id_user</th>  
             <th>Action</th>         
     </tr>
-    <?php while ($r = $results->fetch(PDO::FETCH_ASSOC)) {
-
-?>
+    <?php while ($r = $results->fetch(PDO::FETCH_ASSOC)) {?>
 <tr>
+    <td><?php echo $r['nom'] ?></td>
     <td><?php echo $r['nom_fichier'] ?></td>
-    <td><?php echo $r['nom_fichier_cryptee'] ?></td>
     <td><?php echo $r['id_user'] ?></td>
+    
     <td>
     <a href="edit.php?id=<?php echo $r['id_user'] ?>" class="btn btn-warning"download="<?php echo $r['id_user'] ?>">download</a>
     <a onclick="return confirm('Are you sure you want to delete this rental?');" href="delete.php?id=<?php echo $r['id_user'] ?>" class="btn btn-danger">Delete</a>
