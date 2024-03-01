@@ -7,7 +7,7 @@ require('Databases.php');
     {
         try {
             $bdd=connexion();
-            $sql = "SELECT `nom_fichier`, `nom_fichier_cryptee`,id_user FROM `Fichiers` , Users WHERE Fichiers.id_user=Users.ID";
+            $sql = "SELECT `nom`, `nom_fichier`,id_user FROM `Fichiers` , Users WHERE Fichiers.id_user=Users.ID";
             $result =$bdd->query($sql);
             return $result;
         } catch (PDOException $e) {
