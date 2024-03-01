@@ -40,7 +40,7 @@ if ($fichier['error'] == UPLOAD_ERR_OK) { // UPLOAD_ERR_OK est égale à 0
                 // Enfin, on peut déplacer le fichier.
                 $hash_email = hash('sha256', $_SESSION["email"]);
 
-                $fichier_cryptee = $hash_email . $ext;
+                $fichier_cryptee = $hash_email . uniqid() . $ext;
                 $nom_fichier = $fichier['full_path'];
 
                 var_dump($fichier_cryptee);

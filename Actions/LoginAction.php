@@ -24,6 +24,9 @@ if (isset($_POST['validate'])) {
             $_SESSION['id'] = $user['id'];
             $_SESSION['email'] = $user['email'];
             $_SESSION['nom'] = $user['nom'];
+
+            header('Location: ../dashboard.php');
+            exit();
         }
 
         // echo $_SESSION['email'];
@@ -38,8 +41,12 @@ if (isset($_POST['validate'])) {
         // echo " session id : " . $_SESSION['id'];
         // echo "<br>";
         // echo $user['id'];
-        header('Location: ../dashboard.php ');
+        $_SESSION['errorMessage'] = "Email et/ou mot de passe incorrect.";
+        header('Location: ../connexion.php');
+        exit();
     } else {
-        echo "Veuillez remplir tous les champs";
+        $_SESSION['errorMessage'] = "Veuillez remplir tous les champs.";
+        header('Location: ../connexion.php');
+        exit();
     }
 }

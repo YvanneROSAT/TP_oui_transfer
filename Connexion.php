@@ -2,6 +2,16 @@
 require('./Actions/LoginAction.php');
 require('./HeaderFooter/Header.php');
 ?>
+
+<?php
+if (isset($_SESSION['errorMessage'])) { ?>
+  <div class="error-message" style="text-align:center; color: red;">
+    <?= $_SESSION['errorMessage']?>
+  </div>
+  <?php unset($_SESSION['errorMessage']); // Supprime le message d'erreur de la session
+  } ?>
+
+
 <section class="h-100 gradient-form" style="background-color: #eee;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
