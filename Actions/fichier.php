@@ -31,3 +31,18 @@ require('Databases.php');
         }
     }
     
+    function DownloadFichiers($nom_fichier)
+    {
+        try {
+            $bdd = connexion();
+            $sql = "SELECT `nom_fichier_cryptee` FROM `Fichiers` WHERE nom_fichier=:nom_fichier";
+            $stmt = $bdd->prepare($sql);
+            $stmt->bindparam(':nom_fichier', $nom_fichier);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result['nom_fichier_cryptee'];
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }

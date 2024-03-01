@@ -1,5 +1,7 @@
 <?php
 // session_start();
+// Vérifier le nom de la page actuelle pour ajouter la classe active
+$currentFile = basename($_SERVER['PHP_SELF']);
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/CSS/connexion.css">
+    <!-- <link rel="stylesheet" href="assets/CSS/connexion.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="assets/img/Logo.png">
     <!--Box-icons-->
@@ -21,47 +23,31 @@
 </head>
 
 
-<body>
-    <!--Nav Section-->
-    <section class="nav-wrapper">
-        <div class="container">
-            <div class="nav">
-                <a href="#" class="logo">
-                    <img src="assets/img/Logo.png">
-                </a>
-                <ul class="nav-menu" id="nav-menu">
+<body class="bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary border border-top-0 border-end-0 border-start-0">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img class="w-25 rounded" src="assets/img/Logo.png">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
                     <?php if (isset($_SESSION['auth'])) { ?>
-                        <li><a href="dashboard.php">Dashboard</a></li>
-                        <li><a href="./envoyer.php" class="btn btn-hover"><span>
-                                Envoyer
-                            </span></a>
-                        </li>
-                        <li><a href="./profil.php" class="btn btn-hover"><span>
-                                Profil
-                            </span></a>
-                        </li>
-                        <li><a href="./Actions/Deconnexion.php" class="btn btn-hover"><span>
-                                Déconnexion
-                            </span></a>
-                        </li>
+                        <a class="nav-link fs-6 mx-1 <?php if ($currentFile == 'dashboard.php') echo 'active text-black'; ?>" href="dashboard.php">Dashboard</a>
+                        <a class="nav-link fs-6 mx-1 <?php if ($currentFile == 'envoyer.php') echo 'active text-black'; ?>" aria-current="page" href="envoyer.php">Envoyer</a>
+                        <a class="nav-link fs-6 mx-1 <?php if ($currentFile == 'recu.php') echo 'active text-black'; ?>" aria-current="page" href="recu.php">Reçu</a>
+                        <a class="nav-link fs-6 mx-1 <?php if ($currentFile == 'profil.php') echo 'active text-black'; ?>" aria-current="page" href="profil.php">Profil</a>
+                        <a class="nav-link fs-6 mx-1 bg-danger rounded text-white" aria-current="page" aria-disabled="true" href="./Actions/Deconnexion.php">Déconnexion</a>
                     <?php } else { ?>
-                        <li><a href="inscription.php">Inscription</a></li>
-                        <li><a href="Connexion.php" class="btn btn-hover"><span>
-                                Connexion
-                            </span></a>
-                        </li>
+                        <a class="nav-link fs-5 mx-2 text-black" aria-disabled="true" href="inscription.php">Inscription</a>
+                        <a class="nav-link fs-5 mx-2 text-white rounded bg-primary" aria-disabled="true" href="Connexion.php">Connexion</a>
                     <?php } ?>
-                    
-                
-                </ul>
-                <!--Mobile version-->
-                <div class="hamburger-menu" id="hamburger-menu">
-                    <div class="hamburger">
-
-                    </div>
                 </div>
             </div>
         </div>
+    </nav>
     </section>
 
     <!--JQUERY-->
