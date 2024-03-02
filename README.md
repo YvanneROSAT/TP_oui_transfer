@@ -22,12 +22,11 @@ C'est un project scolaire a LiveCampus qui consite a réalise une version minima
 * Outils utilisés : Visual Studio Code, GitHub, WampServer
 
 ## AUTEURS
-Ajouter votre pseudo git après le github exemple : https://github.com/ExempleBLABLA
 
 - [@YvanneROSAT](https://github.com/YvanneROSAT)
-- [@AboubakrZENNIR](https://github.com/)
-- [@KevinLAFONTA](https://github.com/)
-- [@Stan97x](https://github.com/)
+- [@AboubakrZENNIR](https://github.com/Aboubakr67)
+- [@KevinLAFONTA](https://github.com/KLAFONTA)
+- [@Stanley](https://github.com/Stan97x)
 
 ## INSCRIPTION
 
