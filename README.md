@@ -4,10 +4,14 @@ C'est un project scolaire a LiveCampus qui consite a réalise une version minima
 
 ## SOMMAIRE
 
-- [DETAILS](#DETAILS-DU-PROJET)
-- [AUTEURS](#AUTEURS)
-- [INSCRIPTION](#INSCRIPTION)
-
+- [Détails du projet](#DETAILS-DU-PROJET)
+- [Auteurs](#AUTEURS)
+- [Inscription](#INSCRIPTION)
+- [Connexion](#CONNEXION)
+- [Envoyer](#ENVOYER-UN-FICHIER)
+- [Récupérer un fichier](#RECUPERER-UN-FICHIER)
+- [Supprimer un fichier](#SUPPRIMER-UN-FICHIER)
+- [Modifier son profil](#MODIFIER-SON-PROFIL)
 
 ## DETAILS DU PROJET
 * Nom : OuiTransfer
@@ -53,7 +57,7 @@ Tous les fichiers qui vous ont été partagés seront disponibles sur votre espa
 
 Il suffit de cliquer sur télécharger pour le récupérer.
 
-## SUPPRIMER UN FICHIER DEPOSE
+## SUPPRIMER UN FICHIER
 
 Tous les fichiers qui ont été envoyés sont disponibles sur votre espace "Dashboard".
 
