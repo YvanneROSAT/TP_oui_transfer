@@ -32,6 +32,7 @@ C'est un project scolaire a LiveCampus qui consite a réalise une version minima
 
 L'inscription de l'utilisateur est obligatoire. Le site permettant un stockage des fichiers ainsi qu'un partage personnalisé.
 
+
 ## CONNEXION
 
 Une fois connecté, vous avez accès à l'ensemble des fonctionnalités du site, à savoir :
@@ -40,11 +41,19 @@ Une fois connecté, vous avez accès à l'ensemble des fonctionnalités du site,
 - Le stockage des fichiers
 - La modification de vos informations personnelles
 
+Jeu de données :
+
+- jean@gmail.com MDP : 123456
+- Louis@Pignion.fr MDP : yCCuThQ^5PiUrmr*saPK
+- abo@gmail.com MDP : 1234567
+
 ## ENVOYER UN FICHIER
 
 ![App Screenshot](https://github.com/YvanneROSAT/TP_oui_transfer/blob/main/assets/image/Envoyer.png?raw=true)
 
-- Le champ Email correspond à l'email de l'utilisateur qui va recevoir le fichier.
+- Le champ Email correspond à l'email de l'utilisateur qui va recevoir le fichier. 
+
+- Il est possible d'envoyer le document à plusieurs destinataires en même temps. (Exemple@mail.com,test@mail.com,...etc)
 
 - Choisir un fichier sur votre machine en local.
 
