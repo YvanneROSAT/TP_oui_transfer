@@ -134,7 +134,6 @@ if (isset($_SESSION['success'])) { ?>
                 <th scope="col">Envoyé par</th>
                 <th scope="col">Email</th>
                 <th scope="col">Action</th>
-                <th scope="col"></th>
                 <th scope="col">Téléchargement</th>
             </tr>
         </thead>
@@ -144,9 +143,6 @@ if (isset($_SESSION['success'])) { ?>
                     <td><?php echo $fichier['nom_fichier']; ?></td>
                     <th><?php echo $fichier['nom'] ?></th>
                     <th><?php echo $fichier['email'] ?></th>
-                    <td>
-                        <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette location ?');" href="delete.php?id=<?= $fichier['id_fichier'] ?>" class="btn btn-danger">Supprimer</a>
-                    </td>
                     <td>
                         <!-- Utilisez un formulaire pour envoyer l'ID du fichier lors du téléchargement -->
                         <form action="./Actions/increment_and_download.php" method="post">
