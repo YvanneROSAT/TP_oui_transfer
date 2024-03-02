@@ -12,143 +12,147 @@ function checkEmailExist($email)
     $stmt->bindParam(':email', $email);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['count'] > 0;
+    // if ($result['count'] == 0) {
+    //     $_SESSION['errorMessage'] = "Aucun compte n'existe avec la ou les adresses email saisie(s).";
+    //     header('Location: ../envoyer.php');
+    //     exit();
+    // }
+}
 
-    if ($result['count'] == 0) {
-        $_SESSION['errorMessage'] = "Aucun compte n'existe avec l'adresse email saisie.";
-        header('Location: ../envoyer.php');
-        exit();
-    }
+// cette fonction permet de récuperer l'id de l'user qu'on partage avec son email
+function recupIdUserPourLequelOnPartage($email) {
+    $bdd = connexion();
+    $sql = "SELECT id FROM Users WHERE email = :email";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindParam(':email', $email);;
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $user['id'];
+}
+
+
+function recupIdFichier($nom_fichier, $fichier_cryptee, $id_user) {
+    $bdd = connexion();
+    $sql = "SELECT id FROM Fichiers WHERE nom_fichier = :nom_fichier AND nom_fichier_cryptee = :nom_fichier_cryptee AND id_user = :id_user";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindParam(':nom_fichier', $nom_fichier);
+    $stmt->bindParam(':nom_fichier_cryptee', $fichier_cryptee);
+    $stmt->bindParam(':id_user', $_SESSION['id']);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $user['id'];
+}
+
+function insertPartage($id_fichier_user, $id_users_partage, $id_email_user_partage){
+    $bdd = connexion();
+
+    $sql = "INSERT INTO Partage (id_fichier, id_utilisateur_partage, id_user_autorisee) VALUES (:id_fichier, :id_utilisateur_partage, :id_user_autorisee)";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindParam(':id_fichier', $id_fichier_user);
+    $stmt->bindParam(':id_utilisateur_partage', $id_users_partage);
+    $stmt->bindParam(':id_user_autorisee', $id_email_user_partage);
+    $stmt->execute();
+    
+}
+
+function insertFichierBDD($nom_fichier, $fichier_cryptee, $id_user) {
+    $bdd = connexion();
+    $sql = "INSERT INTO Fichiers (nom_fichier, nom_fichier_cryptee, id_user) VALUES (:nom_fichier, :nom_fichier_cryptee, :id_user)";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindParam(':nom_fichier', $nom_fichier);
+    $stmt->bindParam(':nom_fichier_cryptee', $fichier_cryptee);
+    $stmt->bindParam(':id_user', $_SESSION['id']);
+    $stmt->execute();
 }
 
 
 $fichier = $_FILES['fichier'];
 $email = filter_input(INPUT_POST, "email");
-$emails = explode(',', $email);
+// $emails = explode(',', $email);
+$emails = array_map('trim', explode(',', $email));
+
+// echo $emails;
+// echo "</br>";
+
+// foreach ($emails as $email) {
+//    echo $email;
+//    echo "<br>";
+// }
+
+
+if (empty($email)) {
+    $_SESSION['errorMessage'] = "Veuillez remplir tous les champs!";
+    header('Location: ../envoyer.php');
+    exit();
+}
 
 foreach ($emails as $email) {
-    $email = trim($email); // supprime les espaces supplémentaires
+    $email = trim($email);
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        // checkEmailExist($email);
-        // le reste de votre code pour envoyer le fichier
-        echo $email."<br>";
+        if (!checkEmailExist($email)) {
+            $_SESSION['errorMessage'] = "Aucun compte n'existe avec l'adresse e-mail saisie: $email";
+            header('Location: ../envoyer.php');
+            exit();
+        }
     } else {
-        $_SESSION['errorMessage'] = "L'adresse email $email n'est pas valide.";
-        header('Location: ../envoyer.php ');
+        $_SESSION['errorMessage'] = "L'adresse e-mail $email n'est pas valide.";
+        header('Location: ../envoyer.php');
         exit();
     }
 }
 
-// if(!$email){
-//     $_SESSION['errorMessage'] = "Veuillez remplir tout les champs !";
-//     header('Location: ../envoyer.php ');
-//     exit();
-// }
+if ($fichier['error'] != UPLOAD_ERR_OK) {
+    $_SESSION['errorMessage'] = "Erreur lors de l'envoi du fichier.";
+    header('Location: ../envoyer.php');
+    exit();
+}
 
-// checkEmailExist($email);
+$parties = explode('.', $fichier['name']);
+// var_dump($parties);
+// $extensionnnnnn = end($parties);
+// var_dump($extensionnnnnn);
+$extension = $parties[1];
+// var_dump($extension);
+$ext = '.' . $extension;
 
+$finfo = finfo_open(FILEINFO_MIME);
+$info = finfo_file($finfo, $fichier['tmp_name']);
+$info_cleaned = strstr($info, "; charset=binary", true);
 
-// if ($fichier['error'] == UPLOAD_ERR_OK) { // UPLOAD_ERR_OK est égale à 0
-//     // Ca, ça veut dire que l'upload s'est bien passé
-//     // Maintenant, on vérifie des infos sur le fichier uploadé
-//     $parties = explode('.', $fichier['name']); // ['fichier', 'pdf']
-//     $extension = $parties[1];
+if (!getAndVerify($ext, $info_cleaned)) {
+    $_SESSION['errorMessage'] = "Le fichier n'est pas valide.";
+    header('Location: ../envoyer.php');
+    exit();
+}
 
-//     $finfo = finfo_open(FILEINFO_MIME);
-//     $info = finfo_file($finfo, $fichier['tmp_name']);
-//     // var_dump($info);
+$taille = filesize($fichier['tmp_name']);
+if ($taille >= 20971520) {
+    $_SESSION['errorMessage'] = "Aie! Le fichier est trop volumineux.";
+    header('Location: ../envoyer.php');
+    exit();
+}
 
-//     $ext = '.' . $extension;
+$hash_email = hash('sha256', $_SESSION["email"]);
+$fichier_cryptee = $hash_email . uniqid() . $ext;
+$nom_fichier = $fichier['full_path'];
 
-//     $info_split = strstr($info, "; charset=binary", true); // Retire la partie à partir de "; charset=binary"
-//     $info_cleaned = ($info_split !== false) ? trim($info_split) : $info; // Supprime les espaces supplémentaires
+move_uploaded_file($fichier['tmp_name'], '../Upload/' . $fichier_cryptee);
 
+insertFichierBDD($nom_fichier, $fichier_cryptee, $_SESSION['id']);
 
-//     if (getAndVerify($ext, $info_cleaned)) {
-//         // C'est bon, c'est bien un fichier PDF
-//         // On va quand même vérifier le contenu du fichier pour être certain(e)
-//         // On ouvre le fichier tmp_name pour regarder ce qu'il y a dedans
+$id_fichier_user = recupIdFichier($nom_fichier, $fichier_cryptee, $_SESSION['id']);
 
+foreach ($emails as $email) {
+    $email = trim($email);
+    $id_email_user_partage = recupIdUserPourLequelOnPartage($email);
+    insertPartage($id_fichier_user, $_SESSION['id'] , $id_email_user_partage);
 
-//         // Là on est certain(e)s que c'est vraiment du PDF
+    // insertPartage($id_fichier_user, $id_users_partage, $id_email_user_partage){
+}
 
-//         // Maintenant on vérifie que la taille est OK
-//         $taille = filesize($fichier['tmp_name']);
-//         if ($taille < 20971520) {
-//             // La taille est en dessous de la limite, c'est ok
+$_SESSION['success'] = "Votre fichier a été envoyé avec succès.";
+header('Location: ../envoyer.php');
+exit();
 
-//             // Enfin, on peut déplacer le fichier.
-//             $hash_email = hash('sha256', $_SESSION["email"]);
-
-//             $fichier_cryptee = $hash_email . uniqid() . $ext;
-//             $nom_fichier = $fichier['full_path'];
-
-//                 //  
-
-//                 move_uploaded_file($fichier['tmp_name'], '../Upload/' .$fichier_cryptee);
-
-                
-                
-//                 $bdd = connexion();
-//                 $sql = "INSERT INTO Fichiers (nom_fichier, nom_fichier_cryptee, id_user) VALUES (:nom_fichier, :nom_fichier_cryptee, :id_user)";
-//                 $stmt = $bdd->prepare($sql);
-//                 $stmt->bindParam(':nom_fichier', $nom_fichier);
-//                 $stmt->bindParam(':nom_fichier_cryptee', $fichier_cryptee);
-//                 $stmt->bindParam(':id_user', $_SESSION['id']);
-//                 $stmt->execute();
-
-
-//                 // Ici on fais une requete pour récuperer l'id du fichier qu'on vient de crééee
-//                 $sql = "SELECT id FROM Fichiers WHERE nom_fichier = :nom_fichier AND nom_fichier_cryptee = :nom_fichier_cryptee AND id_user = :id_user";
-//                 $stmt = $bdd->prepare($sql);
-//                 $stmt->bindParam(':nom_fichier', $nom_fichier);
-//                 $stmt->bindParam(':nom_fichier_cryptee', $fichier_cryptee);
-//                 $stmt->bindParam(':id_user', $_SESSION['id']);
-//                 $stmt->execute();
-//                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-//                 // L'id du fichier qu'on vient de créeer
-//                 $id_fichier_user = $user['id'];
-
-//                 // var_dump($id_fichier_user);
-
-
-//                 // Ici on fais une requete pour récuperer l'id de l'user pour lequel on partage
-//                 $sql = "SELECT id FROM Users WHERE email = :email";
-//                 $stmt = $bdd->prepare($sql);
-//                 $stmt->bindParam(':email', $email);;
-//                 $stmt->execute();
-//                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-//                 // L'id du fichier qu'on vient de créeer
-//                 $id_email_user_partage = $user['id'];
-
-//                 // var_dump($id_email_user_partage);
-
-
-//                 // Insérer dans la table partage pour pourvoir que l'utilisateur qui recoit le partage ait acces au fichier
-//                 $sql = "INSERT INTO Partage (id_fichier, id_utilisateur_partage, id_user_autorisee) VALUES (:id_fichier, :id_utilisateur_partage, :id_user_autorisee)";
-//                 $stmt = $bdd->prepare($sql);
-//                 $stmt->bindParam(':id_fichier', $id_fichier_user);
-//                 $stmt->bindParam(':id_utilisateur_partage', $_SESSION['id']);
-//                 $stmt->bindParam(':id_user_autorisee', $id_email_user_partage);
-//                 $stmt->execute();
-
-
-
-//                 $_SESSION['success'] = "Votre fichier " . " à été envoyer";
-//                 header('Location: ../envoyer.php ');
-//                 exit();
-//             } else {
-//                 $_SESSION['errorMessage'] = "Aie ! Le fichier est trop volumineux";
-//                 header('Location: ../envoyer.php ');
-//             }
-        
-//     } else {
-//         $_SESSION['errorMessage'] = "Le fichier n'est pas valide";
-//         header('Location: ../envoyer.php ');
-//     }
-// } else {
-//     // Il y a eu une erreur à l'envoi du fichier
-//     $_SESSION['errorMessage'] = "Veuillez remplir tout les champs !";
-//     header('Location: ../envoyer.php ');
-// }
+?>

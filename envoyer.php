@@ -35,7 +35,7 @@ if (isset($_SESSION['success'])) { ?>
         <form method="POST" enctype="multipart/form-data" action="./Actions/EnvoyerFichierBdd.php">
             <div class="mb-3">
                 <label for="email" class="form-label">Envoyer à</label>
-                <input type="text" class="form-control" id="email" aria-describedby="emailHelp" name="email" placeholder="Email1, Email2, Email3">
+                <input type="text" class="form-control" id="email" aria-describedby="emailHelp" name="email" placeholder="Email1, Email2, Email3, ect">
             </div>
 
             <div>

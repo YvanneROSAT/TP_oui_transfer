@@ -8,6 +8,7 @@ if (!isset($_SESSION['auth'])) {
 
 require('Actions/fichier.php');
 $results = getheFichiers();
+$count = $results->rowCount();
 
 // Fonction pour obtenir le nom de fichier crypté à partir de l'ID du fichier
 function getCryptedFileName($id_fichier)
@@ -81,7 +82,11 @@ if (isset($_SESSION['success'])) { ?>
 } ?>
 
 <h1>Mes fichiers envoyés</h1>
-<div class="container">
+<?php if($count == 0) { ?>
+<h1>Aucun fichier envoyer !</h1>
+
+<?php } else { ?>
+    <div class="container">
     <table class="table">
         <thead>
             <tr>
@@ -122,10 +127,16 @@ if (isset($_SESSION['success'])) { ?>
     </table>
 </div>
 
+<?php } ?>
+
 <!-- ------------------------------------ -->
 
 
 <h1>Mes partages</h1>
+<?php if($count == 0) { ?>
+<h1>Aucun fichier partage !</h1>
+
+<?php } else { ?>
 <div class="container">
     <table class="table table-hover table-dark">
         <thead>
@@ -157,7 +168,7 @@ if (isset($_SESSION['success'])) { ?>
         </tbody>
     </table>
 </div>
-
+<?php } ?>
 
 <?php
 require('./HeaderFooter/Footer.php');
