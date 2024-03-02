@@ -130,10 +130,20 @@ function deleteFileFromUpload($id_fichier)
 
         // var_dump();
 
-
         if (file_exists($chemin_fichier)) {
-            unlink($chemin_fichier);
+            if (unlink($chemin_fichier)) {
+                echo "Fichier supprimé avec succès.<br/>";
+            } else {
+                echo "Erreur lors de la suppression du fichier.<br/>";
+            }
+        } else {
+            echo "Le fichier n'existe pas.<br/>";
         }
+
+
+        // if (file_exists($chemin_fichier)) {
+        //     unlink($chemin_fichier);
+        // }
         return true;
     } catch (PDOException $e) {
         echo $e->getMessage();
