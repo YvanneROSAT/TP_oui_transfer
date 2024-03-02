@@ -5,6 +5,7 @@ if (!isset($_SESSION['auth'])) {
     exit();
 }
 
+
 require('Actions/fichier.php');
 $results = getheFichiers();
 
@@ -24,6 +25,8 @@ function getCryptedFileName($id_fichier)
         return false;
     }
 }
+
+
 
 // Vérifiez si l'ID du fichier à télécharger est présent dans la session
 if (isset($_SESSION['download_id'])) {
@@ -49,9 +52,13 @@ if (isset($_SESSION['download_id'])) {
     exit();
 }
 
-require('./HeaderFooter/Header.php');
 require('./Function/ft_get_info_partager.php');
 $listeFicherPartager = get_info_partager($_SESSION['id']);
+
+// var_dump($listeFicherPartager);
+
+
+require('./HeaderFooter/Header.php');
 ?>
 
 
@@ -109,6 +116,46 @@ if (isset($_SESSION['success'])) { ?>
                         </div>
                     </th>
                     <th><?php echo $r['nombre_telechargement'] ?></th>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
+
+<!-- ------------------------------------ -->
+
+
+<h1>Mes partages</h1>
+<div class="container">
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nom du fichier</th>
+                <th scope="col">Envoyé par</th>
+                <th scope="col">Email</th>
+                <th scope="col">Action</th>
+                <th scope="col"></th>
+                <th scope="col">Téléchargement</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($listeFicherPartager as $fichier) { ?>
+                <tr>
+                    <td><?php echo $fichier['nom_fichier']; ?></td>
+                    <th><?php echo $fichier['nom'] ?></th>
+                    <th><?php echo $fichier['email'] ?></th>
+                    <td>
+                        <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette location ?');" href="delete.php?id=<?= $fichier['id_fichier'] ?>" class="btn btn-danger">Supprimer</a>
+                    </td>
+                    <td>
+                        <!-- Utilisez un formulaire pour envoyer l'ID du fichier lors du téléchargement -->
+                        <form action="./Actions/increment_and_download.php" method="post">
+                            <input type="hidden" name="id_fichier" value="<?= $fichier['id_fichier'] ?>">
+                            <button type="submit" class="btn btn-warning">Télécharger</button>
+                        </form>
+                    </td>
+                   
+                    <th><?php echo $fichier['nombre_telechargement'] ?></th>
                 </tr>
             <?php } ?>
         </tbody>
