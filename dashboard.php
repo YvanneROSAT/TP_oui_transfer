@@ -80,8 +80,8 @@ if (isset($_SESSION['success'])) { ?>
 <?php unset($_SESSION['success']); // Supprime le message d'erreur de la session
 } ?>
 
-<h1>Mes fichiers envoyés</h1>
-<div class="container">
+<h3 class="text-center my-3">Mes fichiers envoyés</h3>
+<div class="container mb-5">
     <table class="table">
         <thead>
             <tr>
@@ -125,7 +125,7 @@ if (isset($_SESSION['success'])) { ?>
 <!-- ------------------------------------ -->
 
 
-<h1>Mes partages</h1>
+<h2 class="text-center my-3">Mes partages</h2>
 <div class="container">
     <table class="table table-hover table-dark">
         <thead>
@@ -150,7 +150,7 @@ if (isset($_SESSION['success'])) { ?>
                             <button type="submit" class="btn btn-warning">Télécharger</button>
                         </form>
                     </td>
-                   
+
                     <th><?php echo $fichier['nombre_telechargement'] ?></th>
                 </tr>
             <?php } ?>
