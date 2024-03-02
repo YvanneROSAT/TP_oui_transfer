@@ -37,7 +37,6 @@ $currentFile = basename($_SERVER['PHP_SELF']);
                     <?php if (isset($_SESSION['auth'])) { ?>
                         <a class="nav-link fs-6 mx-1 <?php if ($currentFile == 'dashboard.php') echo 'active text-black'; ?>" href="dashboard.php">Dashboard</a>
                         <a class="nav-link fs-6 mx-1 <?php if ($currentFile == 'envoyer.php') echo 'active text-black'; ?>" aria-current="page" href="envoyer.php">Envoyer</a>
-                        <a class="nav-link fs-6 mx-1 <?php if ($currentFile == 'recu.php') echo 'active text-black'; ?>" aria-current="page" href="recu.php">Reçu</a>
                         <a class="nav-link fs-6 mx-1 <?php if ($currentFile == 'profil.php') echo 'active text-black'; ?>" aria-current="page" href="profil.php">Profil</a>
                         <a class="nav-link fs-6 mx-1 bg-danger rounded text-white" aria-current="page" aria-disabled="true" href="./Actions/Deconnexion.php">Déconnexion</a>
                     <?php } else { ?>

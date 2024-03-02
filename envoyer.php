@@ -30,24 +30,24 @@ if (isset($_SESSION['success'])) { ?>
 <!--
     Pour envoyer un fichier :
     - On utilisera la méthode POST parce qu' un fichier binaire dans l'URL, c'est pas super - On utilisera enctype avec la valeur multipart/form-data pour encoder la requête différemment -->
-    <div class="container">
-        <div class="row mx-auto w-50">
-            <form method="POST" enctype="multipart/form-data" action="./Actions/EnvoyerFichierBdd.php">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
-                </div>
+<div class="container">
+    <div class="row mx-auto w-50">
+        <form method="POST" enctype="multipart/form-data" action="./Actions/EnvoyerFichierBdd.php">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
+            </div>
 
-                <div>
-                    <label for="fichier" class="form-label">Choisir un fichier</label>
-                    <input class="form-control form-control-lg" id="fichier" type="file" name="fichier">
-                </div>
+            <div>
+                <label for="fichier" class="form-label">Choisir un fichier</label>
+                <input class="form-control form-control-lg" id="fichier" type="file" name="fichier">
+            </div>
 
-                <button class="btn btn-primary mt-3" type="submit" value="Envoyer le fichier">Envoyer le fichier</button>
-            </form>
-        </div>
+            <button class="btn btn-primary mt-3" type="submit" value="Envoyer le fichier">Envoyer le fichier</button>
+        </form>
     </div>
+</div>
 
-    <?php
-    require('./HeaderFooter/Footer.php');
-    ?>
+<?php
+require('./HeaderFooter/Footer.php');
+?>

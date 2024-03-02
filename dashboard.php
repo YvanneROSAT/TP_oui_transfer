@@ -6,6 +6,8 @@ if (!isset($_SESSION['auth'])) {
 require('Actions/fichier.php');
 $results = getheFichiers();
 require('./HeaderFooter/Header.php');
+require('./Function/ft_get_info_partager.php');
+$listeFicherPartager = get_info_partager($_SESSION['id']);
 ?>
 
 
@@ -42,6 +44,35 @@ require('./HeaderFooter/Header.php');
                             </div>
                         </div>
                     </th>
+                </tr>
+            <?php }
+            ?>
+        </tbody>
+    </table>
+</div>
+
+<h3 class="text-center my-5">Fichier Reçu</h3>
+<div class="container">
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nb téléchargement</th>
+                <th scope="col">Envoyer par</th>
+                <th scope="col">Son email</th>
+                <th scope="col">Fichier</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($listeFicherPartager as $liste) { ?>
+                <tr>
+                    <th scope="row"><?= $liste['nombre_telechargement'] ?></th>
+                    <td><?= $liste['nom'] ?></td>
+                    <td><?= $liste['email'] ?></td>
+                    <td><?= $liste['nom_fichier'] ?></td>
+                    <td>
+                        
+                    </td>
                 </tr>
             <?php }
             ?>
