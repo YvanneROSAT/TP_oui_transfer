@@ -5,10 +5,14 @@ if (!isset($_SESSION['auth'])) {
     exit();
 }
 
+require('./Function/ft_get_info_partager.php');
+$listeFicherPartager = get_info_partager($_SESSION['id']);
 
-require('Actions/fichier.php');
+// require('Actions/fichier.php');
 $results = getheFichiers();
 $count = $results->rowCount();
+$count2 = $listeFicherPartager->rowCount();
+
 
 // Fonction pour obtenir le nom de fichier crypté à partir de l'ID du fichier
 function getCryptedFileName($id_fichier)
@@ -53,8 +57,7 @@ if (isset($_SESSION['download_id'])) {
     exit();
 }
 
-require('./Function/ft_get_info_partager.php');
-$listeFicherPartager = get_info_partager($_SESSION['id']);
+
 
 // var_dump($listeFicherPartager);
 
@@ -83,7 +86,11 @@ if (isset($_SESSION['success'])) { ?>
 
 <h3 class="text-center my-3">Mes fichiers envoyés</h3>
 <?php if($count == 0) { ?>
-<h1>Aucun fichier envoyer !</h1>
+<div class="container">
+        <div class="alert alert-info text-center mx-auto w-50" role="alert">
+        Aucun fichier envoyer !
+        </div>
+    </div>
 
 <?php } else { ?>
     <div class="container">
@@ -134,8 +141,12 @@ if (isset($_SESSION['success'])) { ?>
 
 
 <h3 class="text-center my-3">Mes partages</h3>
-<?php if($count == 0) { ?>
-<h1>Aucun fichier partage !</h1>
+<?php if($count2 == 0) { ?>
+    <div class="container">
+        <div class="alert alert-info text-center mx-auto w-50" role="alert">
+            Aucun fichier partagé !
+        </div>
+    </div>
 
 <?php } else { ?>
 <div class="container">

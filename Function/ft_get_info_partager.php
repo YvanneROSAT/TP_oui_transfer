@@ -2,6 +2,8 @@
 // require('./Actions/Databases.php');
 // $id_file = 45;
 
+require('./Actions/fichier.php');
+
 function get_info_partager($id_user_autorisee)
 {
     try {
