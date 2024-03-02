@@ -1,8 +1,8 @@
 <?php
 
+// Function de connexion à la base données
 function connexion()
 {
-
     $serveur = 'yvannerosat.com';
     $utilisateur = 'u479250329_UserTransfer';
     $mot_de_passe = 'V]O*3w|L82o';

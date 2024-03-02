@@ -27,9 +27,7 @@ if (isset($_SESSION['success'])) { ?>
 <?php unset($_SESSION['success']); // Supprime le message d'erreur de la session
 } ?>
 
-<!--
-    Pour envoyer un fichier :
-    - On utilisera la méthode POST parce qu' un fichier binaire dans l'URL, c'est pas super - On utilisera enctype avec la valeur multipart/form-data pour encoder la requête différemment -->
+
 <div class="container">
     <div class="row mx-auto w-50">
         <form method="POST" enctype="multipart/form-data" action="./Actions/EnvoyerFichierBdd.php">

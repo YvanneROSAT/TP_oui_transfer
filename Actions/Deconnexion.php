@@ -11,5 +11,3 @@ session_destroy();
 header('Location: ../connexion.php');
 exit();
 ?>
-
-header('Location: ../connexion.php');

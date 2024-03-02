@@ -6,9 +6,13 @@ if (!isset($_SESSION['auth'])) {
 }
 
 require('./Function/ft_get_info_partager.php');
+
+// On stocke tout les fichiers partager
 $listeFicherPartager = get_info_partager($_SESSION['id']);
 
 // require('Actions/fichier.php');
+
+// On stocke tout les fichiers envoyer
 $results = getheFichiers();
 $count = $results->rowCount();
 $count2 = $listeFicherPartager->rowCount();
@@ -51,16 +55,8 @@ if (isset($_SESSION['download_id'])) {
     unset($_SESSION['download_id']);
 
     // header('Location: dashboard.php');
-
-
-    // Terminez le script
     exit();
 }
-
-
-
-// var_dump($listeFicherPartager);
-
 
 require('./HeaderFooter/Header.php');
 ?>
@@ -115,7 +111,6 @@ if (isset($_SESSION['success'])) { ?>
                         <div class="container text-center">
                             <div class="row justify-content-start">
                                 <div class="col-6">
-                                    <!-- Utilisez un formulaire pour envoyer l'ID du fichier lors du téléchargement -->
                                     <form action="./Actions/increment_and_download.php" method="post">
                                         <input type="hidden" name="id_fichier" value="<?= $r['id_fichier'] ?>">
                                         <button type="submit" class="btn btn-warning">Télécharger</button>
@@ -167,7 +162,6 @@ if (isset($_SESSION['success'])) { ?>
                     <th><?php echo $fichier['nom'] ?></th>
                     <th><?php echo $fichier['email'] ?></th>
                     <td>
-                        <!-- Utilisez un formulaire pour envoyer l'ID du fichier lors du téléchargement -->
                         <form action="./Actions/increment_and_download.php" method="post">
                             <input type="hidden" name="id_fichier" value="<?= $fichier['id_fichier'] ?>">
                             <button type="submit" class="btn btn-warning">Télécharger</button>

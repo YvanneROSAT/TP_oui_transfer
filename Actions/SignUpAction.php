@@ -26,8 +26,10 @@ if (isset($_POST['validate'])) {
                 $_SESSION['errorMessage'] = "Cette adresse e-mail est déjà utilisée.";
             }  else {
 
+                // On hash le password
                 $password = password_hash($password, PASSWORD_DEFAULT);
                 $bdd = connexion();
+                // On insère l'user dans la bdd
                 $sql = "INSERT INTO Users (nom, email, password_user) VALUES (:nom, :email, :password)";
                 $stmt = $bdd->prepare($sql);
                 $stmt->bindParam(':nom', $nom);
@@ -43,6 +45,7 @@ if (isset($_POST['validate'])) {
                 $stmt->execute();
                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+                // Stockage des donnes dans la session
                 $_SESSION['auth'] = true;
                 $_SESSION['id'] = $user['id'];
                 $_SESSION['nom'] = $user['nom'];
