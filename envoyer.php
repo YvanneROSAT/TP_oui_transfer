@@ -30,6 +30,13 @@ if (isset($_SESSION['success'])) { ?>
 <!--
     Pour envoyer un fichier :
     - On utilisera la méthode POST parce qu' un fichier binaire dans l'URL, c'est pas super - On utilisera enctype avec la valeur multipart/form-data pour encoder la requête différemment -->
+    <div class="container">
+        <div class="row mx-auto w-50">
+            <form method="POST" enctype="multipart/form-data" action="./Actions/EnvoyerFichierBdd.php">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Envoyer à</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" placeholder="Email">
+                </div>
 <div class="container">
     <div class="row mx-auto w-50">
         <form method="POST" enctype="multipart/form-data" action="./Actions/EnvoyerFichierBdd.php">
