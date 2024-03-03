@@ -32,7 +32,7 @@ $currentFile = basename($_SERVER['PHP_SELF']);
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <?php if (isset($_SESSION['auth'])) { ?>
                         <a class="nav-link fs-6 mx-1 <?php if ($currentFile == 'dashboard.php') echo 'active text-black'; ?>" href="dashboard.php">Dashboard</a>
