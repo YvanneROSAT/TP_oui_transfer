@@ -2,7 +2,7 @@
 
 require('Databases.php');
 
-
+// Function qui récupère tout les fichiers qu'on a envoyer
 function getheFichiers()
 {
     try {
@@ -32,26 +32,26 @@ function getheFichiers()
             echo $e->getMessage();
             return false;
         }
-    }
+}
     
-    // plus utiliser
-    function DownloadFichiers($nom_fichier)
-    {
-        try {
-            $bdd = connexion();
-            $sql = "SELECT `nom_fichier_cryptee` FROM `Fichiers` WHERE nom_fichier=:nom_fichier";
-            $stmt = $bdd->prepare($sql);
-            $stmt->bindparam(':nom_fichier', $nom_fichier);
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result['nom_fichier_cryptee'];
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            return false;
-        }
+// plus utiliser
+function DownloadFichiers($nom_fichier)
+{
+    try {
+        $bdd = connexion();
+        $sql = "SELECT `nom_fichier_cryptee` FROM `Fichiers` WHERE nom_fichier=:nom_fichier";
+        $stmt = $bdd->prepare($sql);
+        $stmt->bindparam(':nom_fichier', $nom_fichier);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['nom_fichier_cryptee'];
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
     }
+}
 
-
+// Function qui incrément de 1 à chaque téléchargeemnt
     function incrementDownloadCount($id_fichier)
 {
     try {
@@ -109,7 +109,6 @@ function deleteFileFromDatabase($id_fichier)
 function deleteFileFromUpload($id_fichier)
 {
     try {
-        // Récupérer le nom du fichier à partir de son ID
         $bdd = connexion();
         $sql = "SELECT nom_fichier_cryptee FROM Fichiers WHERE ID = :id_fichier";
         $stmt = $bdd->prepare($sql);
@@ -130,7 +129,9 @@ function deleteFileFromUpload($id_fichier)
 
         // var_dump();
 
+        // On vérifie si le chemin existe
         if (file_exists($chemin_fichier)) {
+            // On supprime le fichier
             if (unlink($chemin_fichier)) {
                 echo "Fichier supprimé avec succès.<br/>";
             } else {

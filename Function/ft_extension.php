@@ -1,5 +1,6 @@
 <?php
 
+// Function qui permet de vérifier si l'extension et l'application sont similaire
 function getAndVerify($extension, $application)
 {
     $extensions = array(

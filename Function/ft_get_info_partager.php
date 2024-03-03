@@ -4,6 +4,7 @@
 
 require('./Actions/fichier.php');
 
+// Function qui permet d'afficher les fichiers partager de l'user
 function get_info_partager($id_user_autorisee)
 {
     try {

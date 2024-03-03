@@ -2,7 +2,9 @@
 require('Databases.php');
 session_start();
 
+
 if (isset($_POST['validate'])) {
+    // Vérifie si les champs email et password ne sont pas vide
     if (!empty($_POST['email']) && !empty($_POST['password'])) {
 
         $email = filter_input(INPUT_POST, "email");
@@ -19,7 +21,7 @@ if (isset($_POST['validate'])) {
 
         // Vérifie si l'utilisateur existe et si le mot de passe est correct
         if ($user && password_verify($password, $user['password_user'])) {
-            // Enregistre l'ID de l'utilisateur dans la session
+            // Enregistre des donnes utilisateur dans la session
             $_SESSION['auth'] = true;
             $_SESSION['id'] = $user['id'];
             $_SESSION['email'] = $user['email'];
@@ -29,18 +31,6 @@ if (isset($_POST['validate'])) {
             exit();
         }
 
-        // echo $_SESSION['email'];
-        // echo "<br>";
-        // echo "Password saisie par l'user : " . $password;
-        // echo "<br>";
-        // echo "Password bdd : " . $user['password_user'];
-        // $test = password_verify($password, $user['password_user']);
-        // echo "<br>";
-        // echo $test;
-        // echo "<br>";
-        // echo " session id : " . $_SESSION['id'];
-        // echo "<br>";
-        // echo $user['id'];
         $_SESSION['errorMessage'] = "Email et/ou mot de passe incorrect.";
         header('Location: ../connexion.php');
         exit();

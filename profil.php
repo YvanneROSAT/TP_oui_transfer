@@ -10,10 +10,10 @@ require('./Actions/Databases.php');
 if (isset($_POST['validate-nom'])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!empty($_POST['new_username'])) {
-            // Mettre à jour le pseudo de l'utilisateur dans la base de données
+            
             $new_username = filter_input(INPUT_POST, "new_username");
 
-            // la requête SQL
+            
             $bdd = connexion();
 
             $sql = "SELECT nom FROM Users WHERE id=:id";
@@ -22,13 +22,14 @@ if (isset($_POST['validate-nom'])) {
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+            // Comparaison de l'ancien et nouveau nom
             if ($new_username == $user['nom']) {
                 $_SESSION['errorMessage'] = "Le nouveau nom est identique à l'ancien !";
                 header('Location: profil.php');
                 exit();
             }
 
-
+            // Insert dans user : changement de nom
             $sql = "UPDATE Users SET nom = :nom WHERE id=:id";
             $stmt = $bdd->prepare($sql);
             $stmt->bindParam(':nom', $new_username);
@@ -113,24 +114,14 @@ if (isset($_POST['validate-mot-de-passe'])) {
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
-
-            // $old_password  123456 ce qui rentre l'user
-            // $user['password_user'] -èqstdgbqsèd   dans la bdd
-            // $new_password  123456
-
-
             if (password_verify($new_password, $user['password_user'])) {
                 $_SESSION['errorMessage'] = "Votre nouveau mot de passe est le même que l'ancien !";
                 header('Location: profil.php');
                 exit();
             }
 
-
-
             if (password_verify($old_password, $user['password_user'])) {
                 // Le mot de passe actuel correspond, mettre à jour le mot de passe
-
 
                 // la requête SQL
                 $sql = "UPDATE Users SET password_user = :password WHERE id =:id";
@@ -156,14 +147,6 @@ if (isset($_POST['validate-mot-de-passe'])) {
     }
 }
 
-
-// else { 
-
-// $_SESSION['errorMessage'] = "Veuillez remplir le champ nom.";
-// // Redirection vers la page profil
-// header('Location: profil.php');
-// exit();
-// }
 ?>
 
 <h1 class="text-center my-5">Mon profil</h1>
