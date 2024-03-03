@@ -28,7 +28,7 @@ if (isset($_SESSION['success'])) { ?>
 } ?>
 
 
-<div class="container">
+<div class="container mb-4">
     <div class="row mx-auto w-50">
         <form method="POST" enctype="multipart/form-data" action="./Actions/EnvoyerFichierBdd.php">
             <div class="mb-3">

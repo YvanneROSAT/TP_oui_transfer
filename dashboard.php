@@ -144,7 +144,7 @@ if (isset($_SESSION['success'])) { ?>
     </div>
 
 <?php } else { ?>
-<div class="container">
+<div class="container min-vh-10">
     <table class="table table-hover table-dark">
         <thead>
             <tr>
