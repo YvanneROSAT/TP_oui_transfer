@@ -17,17 +17,6 @@ if (isset($_SESSION['errorMessage'])) { ?>
       <div class="row g-0 d-flex align-items-center">
         <div class="col-lg-12">
           <div class="card-body py-5 px-md-5">
-            <form method="POST" action="./Actions/SignUpAction.php">
-              <!-- Nom input -->
-              <div class="form-outline mb-4">
-                <label class="form-label" for="form2Example1">Nom</label>
-                <input type="nom" id="form2Example1" name="nom" class="form-control" required />
-
-              </div>
-              <!-- Email input -->
-              <div class="form-outline mb-4">
-                <label class="form-label" for="form2Example1">Email address</label>
-                <input type="email" id="form2Example1" name="email" class="form-control" required />
 
           <form method="POST" action="./Actions/SignUpAction.php">
             
